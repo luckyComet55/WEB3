@@ -6,9 +6,6 @@ export enum TicToe {
 
 export interface UserData {
     symbol: TicToe
-    userId: string
-    gameId: string
-    isTurnHost: boolean
 }
 
 export interface BoardClickHandler {

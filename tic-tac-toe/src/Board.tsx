@@ -2,14 +2,6 @@ import React, { useState } from "react";
 import Square from "./Square";
 import { UserData, TicToe } from "./types/Props";
 
-function updateSquareValue(squareId: number, data: UserData): TicToe {
-    if (!data.isTurnHost) {
-        return TicToe.NONE
-    }
-    console.log("Clicked on " + squareId)
-    return data.symbol
-}
-
 function ticToeToString(input: TicToe): string {
     let res: string
     switch(input) {
@@ -27,14 +19,20 @@ function ticToeToString(input: TicToe): string {
 }
 
 export default function Board(userData: UserData) {
-
     const [squares, setSquares] = useState(Array<TicToe>(9).fill(TicToe.NONE))
+    const [symb, setSymb] = useState(userData.symbol)
 
     function handleClick(index: number) {
         const newVals = squares.slice()
-        newVals[index] = updateSquareValue(index, userData)
-        if (newVals[index] == userData.symbol) {
-            setSquares(newVals)
+        if (newVals[index] !== TicToe.NONE) {
+            return
+        }
+        newVals[index] = symb
+        setSquares(newVals)
+        if (symb === TicToe.TIC) {
+            setSymb(TicToe.TOE)
+        } else {
+            setSymb(TicToe.TIC)
         }
     }
 
